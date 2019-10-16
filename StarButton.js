@@ -41,6 +41,7 @@ const propTypes = {
   rating: PropTypes.number.isRequired,
   reversed: PropTypes.bool.isRequired,
   starColor: PropTypes.string.isRequired,
+  starIconComponent: PropTypes.elementType,
   starIconName: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
@@ -100,6 +101,7 @@ class StarButton extends Component {
       reversed,
       starColor,
       starIconName,
+      starIconComponent,
       starSize,
       starStyle,
     } = this.props;
@@ -115,14 +117,26 @@ class StarButton extends Component {
     };
 
     if (typeof starIconName === 'string') {
-      iconElement = (
-        <Icon
-          name={starIconName}
-          size={starSize}
-          color={starColor}
-          style={newStarStyle}
-        />
-      );
+      if(starIconComponent){
+        iconElement = (
+          <starIconComponent
+            name={starIconName}
+            size={starSize}
+            color={starColor}
+            style={newStarStyle}
+          />
+        );
+      }
+      else {
+         iconElement = (
+          <Icon
+            name={starIconName}
+            size={starSize}
+            color={starColor}
+            style={newStarStyle}
+          />
+        );
+      }
     } else {
       const imageStyle = {
         width: starSize,
