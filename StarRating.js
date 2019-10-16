@@ -31,18 +31,21 @@ const propTypes = {
     PropTypes.object,
     PropTypes.number,
   ]),
+  emptyStarComponent: PropTypes.elementType,
   emptyStarColor: PropTypes.string,
   fullStar: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
     PropTypes.number,
   ]),
+  fullStarComponent: PropTypes.elementType,
   fullStarColor: PropTypes.string,
   halfStar: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
     PropTypes.number,
   ]),
+  halfStarComponent: PropTypes.elementType,
   halfStarColor: PropTypes.string,
   halfStarEnabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
@@ -62,10 +65,13 @@ const defaultProps = {
   buttonStyle: {},
   containerStyle: {},
   disabled: false,
+  emptyStarComponent: undefined,
   emptyStar: 'star-o',
   emptyStarColor: 'gray',
+  fullStarComponent: undefined,
   fullStar: 'star',
   fullStarColor: 'black',
+  halfStarComponent: undefined,
   halfStar: 'star-half-o',
   halfStarColor: undefined,
   halfStarEnabled: false,
@@ -101,10 +107,13 @@ class StarRating extends Component {
       containerStyle,
       disabled,
       emptyStar,
+      emptyStarComponent,
       emptyStarColor,
       fullStar,
+      fullStarComponent,
       fullStarColor,
       halfStar,
+      halfStarComponent,
       halfStarColor,
       halfStarEnabled,
       icoMoonJson,
@@ -128,13 +137,16 @@ class StarRating extends Component {
 
     for (let i = 0; i < maxStars; i++) {
       let starIconName = emptyStar;
+      let starIconComponent = emptyStarComponent;
       let finalStarColor = emptyStarColor;
 
       if (starsLeft >= 1) {
         starIconName = fullStar;
+        starIconComponent = fullStarComponent;
         finalStarColor = fullStarColor;
       } else if (starsLeft === 0.5) {
         starIconName = halfStar;
+        starIconComponent = halfStarComponent;
         if (halfStarColor) {
           finalStarColor = halfStarColor;
         } else {
@@ -166,6 +178,7 @@ class StarRating extends Component {
             reversed={reversed}
             starColor={finalStarColor}
             starIconName={starIconName}
+            starIconComponent={starIconComponent}
             starSize={starSize}
             starStyle={starStyle}
           />
